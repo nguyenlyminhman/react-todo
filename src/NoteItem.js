@@ -6,9 +6,9 @@ class NoteItem extends Component {
             <div className="card">
                 <div className="card-header" role="tab" id="note1">
                     <h5 className="mb-0">
-                        <a data-toggle="collapse" data-parent="#noteList" href="#noteContent1" aria-expanded="true" aria-controls="note1">
-                            Ghi chú 1
-                                </a>
+                        <a data-toggle="collapse" data-parent="#noteList" href={"#note" + this.props.id} aria-expanded="true" aria-controls="noteContent">
+                            {this.props.title}
+                        </a>
 
                         <div className="btn-group float-right">
                             <button className="btn btn-outline-info">Sửa</button>
@@ -16,10 +16,10 @@ class NoteItem extends Component {
                         </div>
                     </h5>
                 </div>
-                <div id="noteContent1" className="collapse in" role="tabpanel" aria-labelledby="note1">
+                <div id={"note" + this.props.id} className="collapse in" role="tabpanel" aria-labelledby="note1">
                     <div className="card-body">
-                        lorem 1
-                            </div>
+                        {this.props.title}
+                    </div>
                 </div>
             </div>
         );
