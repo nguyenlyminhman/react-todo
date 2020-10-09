@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 class NoteItem extends Component {
     editNote = () => {
         this.props.editNoteData();

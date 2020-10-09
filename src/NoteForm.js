@@ -19,9 +19,15 @@ class NoteForm extends Component {
 
     addNote(title, content) {
         let itemNote = {}
-        itemNote.title = title;
-        itemNote.content = content;
-        this.props.addNoteData(itemNote)
+            itemNote.title = title;
+            itemNote.content = content;
+        if (this.state.editItem.id) {
+            itemNote.id = this.state.editItem.id
+            this.props.editNoteData(itemNote)
+        } else {
+            this.props.addNoteData(itemNote)
+        }
+
     }
 
     cancel = () => {
@@ -78,10 +84,13 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         cancelNoteForm: () => {
-            dispatch({ type: "CANCEL_ADD_NOTE"})
+            dispatch({ type: "CANCEL_ADD_NOTE" })
         },
         addNoteData: (item) => {
             dispatch({ type: "ADD_NOTE", item })
+        },
+        editNoteData: (item) => {
+            dispatch({ type: "EDITED_NOTE", item })
         },
     }
 }

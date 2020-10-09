@@ -19,11 +19,17 @@ function allReducer(state = noteInitialState, action) {
             return { ...state, isEdit: !state.isEdit }
         case "GET_EDIT_NOTE":
             return { ...state, editItem: action.objEdit }
+        case "EDITED_NOTE":
+            NoteData.child(action.item.id).update({
+                title: action.item.title,
+                content: action.item.content
+            })
+            return { ...state, editItem: action.item }
         default:
             return state;
     }
 }
 
 let store = redux.createStore(allReducer);
-store.subscribe(() => { console.log("store", store.getState()); });
+// store.subscribe(() => { console.log("store", store.getState()); });
 export default store;
