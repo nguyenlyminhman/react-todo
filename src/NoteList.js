@@ -28,7 +28,7 @@ class NoteList extends Component {
 
     getData = () => {
         return this.state.noteItem.map((val, key) => {
-            return <NoteItem key={key} id={val.id} title={val.title} content={val.content} />
+            return <NoteItem key={key} noteInfo={val} id={val.id} title={val.title} content={val.content} />
         })
     }
 

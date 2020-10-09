@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class NoteForm extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            editItem: {}
+        }
     }
 
     isChange = (event) => {
@@ -15,48 +17,72 @@ class NoteForm extends Component {
         })
     }
 
-    addNote(title, content){
+    addNote(title, content) {
         let itemNote = {}
         itemNote.title = title;
         itemNote.content = content;
         this.props.addNoteData(itemNote)
     }
 
+    cancel = () => {
+        this.props.cancelNoteForm()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            editItem: nextProps.editItem
+        })
+    }
+    componentDidMount() {
+        this.setState({
+            editItem: this.props.editItem
+        })
+    }
+
     render() {
         return (
             <div className="col-4">
-                <h3>Note List</h3>
+                <h3>Note Information</h3>
                 <form>
                     <div className="form-group">
-                        <label >Note title</label>
+                        <label >Title</label>
                         <input onChange={(event) => this.isChange(event)} type="text" name='title' id='title'
+                            defaultValue={this.state.editItem.title}
                             className="form-control" placeholder='title' aria-describedby="helpId" />
                     </div>
                     <div className="form-group">
-                        <label >Note title</label>
+                        <label >Content</label>
                         <textarea onChange={(event) => this.isChange(event)} type="text" name='content' id='content'
+                            defaultValue={this.state.editItem.content}
                             className="form-control" placeholder='content' aria-describedby="helpId" />
                     </div>
-                    <button type="reset" onClick={()=>this.addNote(this.state.title, this.state.content)}
-                    
-                    className="btn btn-primary btn-block">Save</button>
+                    <div className="form-group">
+                        <button type="reset" onClick={() => this.addNote(this.state.title, this.state.content)}
+                            className="btn btn-outline-primary btn-block">Save</button>
+                        <button type="reset" onClick={() => this.cancel()}
+                            className="btn btn-outline-warning btn-block">Cancel</button>
+                    </div>
                 </form>
             </div>
         );
-    } 
+    }
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        testNote: state.testNote
+        isEdit: state.isEdit,
+        editItem: state.editItem
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        cancelNoteForm: () => {
+            dispatch({ type: "CANCEL_ADD_NOTE"})
+        },
         addNoteData: (item) => {
-            dispatch({type:"ADD_NOTE", item})
-        }
+            dispatch({ type: "ADD_NOTE", item })
+        },
     }
 }
 
