@@ -4,6 +4,7 @@ import './App.css';
 import Nav from './Nav';
 import NoteList from './NoteList';
 import NoteForm from './NoteForm';
+import NotiAlert from './NotiAlert';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class App extends Component {
         <Nav />
         <div className="container">
           <div className="row">
+            <NotiAlert/>
             <NoteList />
             {this.renderNoteForm()}
           </div>

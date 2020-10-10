@@ -2,7 +2,7 @@ import { NoteData } from './FirebaseConfig';
 const redux = require('redux');
 
 const noteInitialState = {
-    isEdit: true,
+    isEdit: false,
     editItem: {}
 };
 
@@ -16,7 +16,7 @@ function allReducer(state = noteInitialState, action) {
                 return { ...state, isEdit: state.isEdit }
             return { ...state, isEdit: !state.isEdit }
         case "CANCEL_ADD_NOTE":
-            return { ...state, isEdit: !state.isEdit }
+            return { ...state, isEdit: !state.isEdit, editItem: {} }
         case "GET_EDIT_NOTE":
             return { ...state, editItem: action.objEdit }
         case "EDITED_NOTE":
